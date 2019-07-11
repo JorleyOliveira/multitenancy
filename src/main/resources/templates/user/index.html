@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <title>Secured Page</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <link href="http://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}" />
+</head>
+<body>
+    <div class="container">
+      <div th:replace="index::logout"></div>
+      <h3>This is a secured page for <span class="text-danger" th:text="${tenantName}">Some Domain</span> and username is <span class="text-success" th:text="${userName}">Username</span></h3>
+      <p><a href="/index" th:href="@{/index}">Back to home page</a></p>
+    </div>
+         <div>
+			<table>
+			    <thead>
+			        <tr>
+			            <th> Title </th>
+			            <th> Author </th>
+			        </tr>
+			    </thead>
+			    <tbody>
+			    <tr th:if="${roles.empty}">
+			            <td colspan="2"> No Books Available </td>
+			        </tr>
+			        <tr th:each="role : ${roles}">
+			            <td><span th:text="${role.id}"> Id </span></td>
+			            <td><span th:text="${role.role}"> Role </span></td>
+			        </tr>
+			    </tbody>
+			</table>        
+        </div>
+        
+<!--         <div> -->
+<!--         	<form action="#" th:action="@{/books/save}" th:object="${form}" -->
+<!-- 			  method="post"> -->
+<!-- 			    <fieldset> -->
+<!-- 			        <input type="submit" id="submitButton" th:value="Save"> -->
+<!-- 			        <input type="reset" id="resetButton" name="reset" th:value="Reset"/> -->
+<!-- 			        <table> -->
+<!-- 			            <thead> -->
+<!-- 			                <tr> -->
+<!-- 			                    <th> Title</th> -->
+<!-- 			                    <th> Author</th> -->
+<!-- 			                </tr> -->
+<!-- 			            </thead> -->
+<!-- 			            <tbody> -->
+<!-- 			                <tr th:each="book, itemStat : *{books}"> -->
+<!-- 			                    <td><input th:field="*{books[__${itemStat.index}__].title}" /></td> -->
+<!-- 			                    <td><input th:field="*{books[__${itemStat.index}__].author}" /></td> -->
+<!-- 			                </tr> -->
+<!-- 			            </tbody> -->
+<!-- 			        </table> -->
+<!-- 			    </fieldset> -->
+<!-- 			</form> -->
+<!--         </div> -->
+</body>
+</html>

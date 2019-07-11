@@ -1,0 +1,82 @@
+########################################################################
+##### COPYRIGHT 2018 onwards - Sunit Katkar (sunitkatkar@gmail.com)
+##### https://sunitkatkar.blogspot.com/ 
+########################################################################
+spring:
+  thymeleaf:
+    cache: false
+    mode: LEGACYHTML5
+  jpa:
+    database: POSTGRESQL
+    database-platform: org.hibernate.dialect.PostgreSQL95Dialect
+    show-sql: true 
+    generate-ddl: false    
+    hibernate: 
+      ddl-auto: update
+    properties:
+      hibernate:
+        hbm2ddl:
+          jdbc_metadata_extraction_strategy: individually
+        dialect: org.hibernate.dialect.PostgreSQL95Dialect
+        show_sql: true
+        format_sql: true
+        type: trace
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        temp:
+          use_jdbc_metadata_defaults: false          
+          
+# LobCreatorBuilderImpl : HHH000424: Disabling contextual LOB creation as createClob() method threw error
+# see: http://vkuzel.blogspot.de/2016/03/spring-boot-jpa-hibernate-atomikos.html
+# Disable feature detection by this undocumented parameter. Check the org.hibernate.engine.jdbc.internal.JdbcServiceImpl.configure method for more details.
+#spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults: false
+# Because detection is disabled you have to set correct dialect by hand.
+#spring.jpa.database-platform: org.hibernate.dialect.PostgreSQL9Dialect              
+        
+##################################################################
+# MULTITENANCY MASTER DATABASE SETUP
+##################################################################        
+#multitenancy: 
+#  mtapp: 
+#    master: 
+#      datasource:
+#        url: jdbc:mysql://192.168.33.10:3306/masterdb?useSSL=false&allowPublicKeyRetrieval=true
+#        username: root
+#        password: mysql
+#        driverClassName: com.mysql.jdbc.Driver
+#        connectionTimeout: 20000
+#        maxPoolSize: 10
+#        idleTimeout: 300000
+#        minIdle: 10
+#        poolName: masterdb-connection-pool
+
+multitenancy: 
+  mtapp: 
+    master: 
+      datasource:        
+        url: jdbc:postgresql://localhost:5433/masterdb
+        username: postgres
+        password: postgres
+        driverClassName: org.postgresql.Driver
+        connectionTimeout: 20000
+        maxPoolSize: 10
+        idleTimeout: 300000
+        minIdle: 10
+        poolName: masterdb-connection-pool        
+
+##################################################################
+# LOGGING LEVELS
+##################################################################        
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug 
+        type:  
+          descriptor: 
+            sql: TRACE
+#              BasicBinder: TRACE 
+              
+#org.hibernate.tool.hbm2ddl              
+
